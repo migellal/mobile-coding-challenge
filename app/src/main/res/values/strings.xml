@@ -4,8 +4,9 @@
     <string name="title_settings">Settings</string>
     <string name="repo_name">[Repo name]</string>
     <string name="repo_description">[Repo description …]</string>
-    <string name="avatar_ct">avatar</string>
+    <string name="avatar_ct">Repository owner avatar</string>
     <string name="repo_owner">[repo owner name]</string>
-    <string name="stars_ct">Stars</string>
+    <string name="stars_ct">Number of stars in this repository</string>
     <string name="repo_stars">[number of stars]</string>
+    <string name="settings_here">Here are some settings…</string>
 </resources>
