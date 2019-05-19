@@ -4,9 +4,13 @@ import kotlinx.coroutines.Deferred
 import pl.michalgellert.trendingrepos.model.GithubRepository
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 interface GithubService {
 
-    @GET("/search/repositories?q=created:>2017-10-22&sort=stars&order=desc")
-    fun getTrendingReposAsync(): Deferred<Response<GithubRepository>>
+    @GET("/search/repositories")
+    fun getTrendingReposAsync(@Query("q") createdDate: String,
+                              @Query("sort") sort: String = "stars",
+                              @Query("order") order: String = "desc")
+            : Deferred<Response<GithubRepository>>
 }

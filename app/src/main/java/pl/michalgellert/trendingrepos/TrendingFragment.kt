@@ -53,7 +53,7 @@ class TrendingFragment : Fragment() {
     private fun downloadData() {
         val service = GithubFactory.service()
         CoroutineScope(Dispatchers.IO).launch {
-            val request = service.getTrendingReposAsync()
+            val request = service.getTrendingReposAsync(DateCalculator().getCreatedDate30DaysAgo())
             try {
                 val response = request.await()
                 withContext(Dispatchers.Main) {
