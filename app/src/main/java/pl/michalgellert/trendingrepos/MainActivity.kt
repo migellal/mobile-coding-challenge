@@ -26,6 +26,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         navView_bnv.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
+        if (savedInstanceState == null) {
+            changeFragment(TrendingFragment.newInstance())
+        }
     }
 
     private fun changeFragment(fragment: Fragment) {
