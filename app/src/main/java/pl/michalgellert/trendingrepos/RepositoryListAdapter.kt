@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import pl.michalgellert.trendingrepos.model.Repository
 
 class RepositoryListAdapter(private val list: List<Repository>)
@@ -35,7 +36,7 @@ class RepositoryViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
     fun bind(repository: Repository) {
         repoName.text = repository.name
         repoDescription.text = repository.description
-        // repoAvatar.setImageBitmap() TODO Picasso here
+        Picasso.get().load(repository.avatar).into(repoAvatar)
         repoOwner.text = repository.username
         repoStars.text = repository.stars.toString()
     }
