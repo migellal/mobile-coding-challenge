@@ -1,12 +1,17 @@
 package pl.michalgellert.trendingrepos
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.Toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.*
+import pl.michalgellert.trendingrepos.model.GithubRepository
 import pl.michalgellert.trendingrepos.model.Repository
+import retrofit2.HttpException
 
 class MainActivity : AppCompatActivity() {
 
@@ -34,11 +39,37 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun downloadData() {
-        repositoryList_rv.apply {
-            visibility = View.VISIBLE
-            layoutManager = LinearLayoutManager(this@MainActivity)
-            adapter = RepositoryListAdapter(fakeData())
+        val service = GithubFactory.service()
+        CoroutineScope(Dispatchers.IO).launch {
+            val request = service.getTrendingReposAsync()
+            try {
+                val response = request.await()
+                withContext(Dispatchers.Main) {
+                    if (response.isSuccessful) {
+                        Log.d("REQUEST", response.message())
+                        response.body()?.let { initRecyclerView(it) }
+
+                    } else {
+                        Toast.makeText(
+                            this@MainActivity, "Error network operation failed with ${response.code()}",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                }
+            } catch (e: HttpException) {
+                Log.e("REQUEST", "Exception ${e.message}")
+            } catch (e: Throwable) {
+                Log.e("REQUEST", "Ooops: Something else went wrong")
+                Log.e("REQUEST", e.message)
+            }
         }
+
+    }
+
+    private fun initRecyclerView(ghRepo: GithubRepository) {
+        Log.d("REQUEST", ghRepo.items.toString())
+        repositoryList_rv.layoutManager = LinearLayoutManager(this@MainActivity)
+        repositoryList_rv.adapter = RepositoryListAdapter(githubRepoToRepo(ghRepo), this)
     }
 
     fun fakeData(): List<Repository> = listOf(
@@ -46,4 +77,22 @@ class MainActivity : AppCompatActivity() {
         Repository("repo2", "repo2 desc", 1, "user2", "https://avatars0.githubusercontent.com/u/17506342?v=4"),
         Repository("repo3", "repo3 desc", 99, "user3", "https://avatars0.githubusercontent.com/u/17506342?v=4")
     )
+
+    fun githubRepoToRepo(ghRepo: GithubRepository?): List<Repository> {
+        val list = ArrayList<Repository>()
+        if (ghRepo?.items != null) {
+            for (gh in ghRepo.items) {
+                list.add(
+                    Repository(
+                        name = gh?.name ?: "",
+                        description = gh?.description ?: "",
+                        avatar = gh?.owner?.avatarUrl ?: "",
+                        username = gh?.owner?.login ?: "",
+                        stars = gh?.stargazersCount ?: -1
+                    )
+                )
+            }
+        }
+        return list
+    }
 }
