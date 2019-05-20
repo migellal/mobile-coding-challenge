@@ -4,11 +4,11 @@ import com.google.gson.annotations.SerializedName
 
 data class GithubRepository(
     @SerializedName("incomplete_results")
-    val incompleteResults: Boolean?,
+    val incompleteResults: Boolean? = null,
     @SerializedName("items")
-    val items: List<Item?>?,
+    val items: List<Item?>? = null,
     @SerializedName("total_count")
-    val totalCount: Int?
+    val totalCount: Int? = null
 ) {
     fun toRepository(): List<Repository> {
         return if (this.items != null) {
@@ -28,203 +28,203 @@ data class GithubRepository(
 
     data class Item(
         @SerializedName("private")
-        val `private`: Boolean?,
+        val private: Boolean? = null,
         @SerializedName("archive_url")
-        val archiveUrl: String?,
+        val archiveUrl: String? = null,
         @SerializedName("archived")
-        val archived: Boolean?,
+        val archived: Boolean? = null,
         @SerializedName("assignees_url")
-        val assigneesUrl: String?,
+        val assigneesUrl: String? = null,
         @SerializedName("blobs_url")
-        val blobsUrl: String?,
+        val blobsUrl: String? = null,
         @SerializedName("branches_url")
-        val branchesUrl: String?,
+        val branchesUrl: String? = null,
         @SerializedName("clone_url")
-        val cloneUrl: String?,
+        val cloneUrl: String? = null,
         @SerializedName("collaborators_url")
-        val collaboratorsUrl: String?,
+        val collaboratorsUrl: String? = null,
         @SerializedName("comments_url")
-        val commentsUrl: String?,
+        val commentsUrl: String? = null,
         @SerializedName("commits_url")
-        val commitsUrl: String?,
+        val commitsUrl: String? = null,
         @SerializedName("compare_url")
-        val compareUrl: String?,
+        val compareUrl: String? = null,
         @SerializedName("contents_url")
-        val contentsUrl: String?,
+        val contentsUrl: String? = null,
         @SerializedName("contributors_url")
-        val contributorsUrl: String?,
+        val contributorsUrl: String? = null,
         @SerializedName("created_at")
-        val createdAt: String?,
+        val createdAt: String? = null,
         @SerializedName("default_branch")
-        val defaultBranch: String?,
+        val defaultBranch: String? = null,
         @SerializedName("deployments_url")
-        val deploymentsUrl: String?,
+        val deploymentsUrl: String? = null,
         @SerializedName("description")
-        val description: String?,
+        val description: String? = null,
         @SerializedName("disabled")
-        val disabled: Boolean?,
+        val disabled: Boolean? = null,
         @SerializedName("downloads_url")
-        val downloadsUrl: String?,
+        val downloadsUrl: String? = null,
         @SerializedName("events_url")
-        val eventsUrl: String?,
+        val eventsUrl: String? = null,
         @SerializedName("fork")
-        val fork: Boolean?,
+        val fork: Boolean? = null,
         @SerializedName("forks")
-        val forks: Int?,
+        val forks: Int? = null,
         @SerializedName("forks_count")
-        val forksCount: Int?,
+        val forksCount: Int? = null,
         @SerializedName("forks_url")
-        val forksUrl: String?,
+        val forksUrl: String? = null,
         @SerializedName("full_name")
-        val fullName: String?,
+        val fullName: String? = null,
         @SerializedName("git_commits_url")
-        val gitCommitsUrl: String?,
+        val gitCommitsUrl: String? = null,
         @SerializedName("git_refs_url")
-        val gitRefsUrl: String?,
+        val gitRefsUrl: String? = null,
         @SerializedName("git_tags_url")
-        val gitTagsUrl: String?,
+        val gitTagsUrl: String? = null,
         @SerializedName("git_url")
-        val gitUrl: String?,
+        val gitUrl: String? = null,
         @SerializedName("has_downloads")
-        val hasDownloads: Boolean?,
+        val hasDownloads: Boolean? = null,
         @SerializedName("has_issues")
-        val hasIssues: Boolean?,
+        val hasIssues: Boolean? = null,
         @SerializedName("has_pages")
-        val hasPages: Boolean?,
+        val hasPages: Boolean? = null,
         @SerializedName("has_projects")
-        val hasProjects: Boolean?,
+        val hasProjects: Boolean? = null,
         @SerializedName("has_wiki")
-        val hasWiki: Boolean?,
+        val hasWiki: Boolean? = null,
         @SerializedName("homepage")
-        val homepage: Any?,
+        val homepage: Any? = null,
         @SerializedName("hooks_url")
-        val hooksUrl: String?,
+        val hooksUrl: String? = null,
         @SerializedName("html_url")
-        val htmlUrl: String?,
+        val htmlUrl: String? = null,
         @SerializedName("id")
-        val id: Int?,
+        val id: Int? = null,
         @SerializedName("issue_comment_url")
-        val issueCommentUrl: String?,
+        val issueCommentUrl: String? = null,
         @SerializedName("issue_events_url")
-        val issueEventsUrl: String?,
+        val issueEventsUrl: String? = null,
         @SerializedName("issues_url")
-        val issuesUrl: String?,
+        val issuesUrl: String? = null,
         @SerializedName("keys_url")
-        val keysUrl: String?,
+        val keysUrl: String? = null,
         @SerializedName("labels_url")
-        val labelsUrl: String?,
+        val labelsUrl: String? = null,
         @SerializedName("language")
-        val language: String?,
+        val language: String? = null,
         @SerializedName("languages_url")
-        val languagesUrl: String?,
+        val languagesUrl: String? = null,
         @SerializedName("license")
-        val license: License?,
+        val license: License? = null,
         @SerializedName("merges_url")
-        val mergesUrl: String?,
+        val mergesUrl: String? = null,
         @SerializedName("milestones_url")
-        val milestonesUrl: String?,
+        val milestonesUrl: String? = null,
         @SerializedName("mirror_url")
-        val mirrorUrl: Any?,
+        val mirrorUrl: Any? = null,
         @SerializedName("name")
-        val name: String?,
+        val name: String? = null,
         @SerializedName("node_id")
-        val nodeId: String?,
+        val nodeId: String? = null,
         @SerializedName("notifications_url")
-        val notificationsUrl: String?,
+        val notificationsUrl: String? = null,
         @SerializedName("open_issues")
-        val openIssues: Int?,
+        val openIssues: Int? = null,
         @SerializedName("open_issues_count")
-        val openIssuesCount: Int?,
+        val openIssuesCount: Int? = null,
         @SerializedName("owner")
-        val owner: Owner?,
+        val owner: Owner? = null,
         @SerializedName("pulls_url")
-        val pullsUrl: String?,
+        val pullsUrl: String? = null,
         @SerializedName("pushed_at")
-        val pushedAt: String?,
+        val pushedAt: String? = null,
         @SerializedName("releases_url")
-        val releasesUrl: String?,
+        val releasesUrl: String? = null,
         @SerializedName("score")
-        val score: Double?,
+        val score: Double? = null,
         @SerializedName("size")
-        val size: Int?,
+        val size: Int? = null,
         @SerializedName("ssh_url")
-        val sshUrl: String?,
+        val sshUrl: String? = null,
         @SerializedName("stargazers_count")
-        val stargazersCount: Int?,
+        val stargazersCount: Int? = null,
         @SerializedName("stargazers_url")
-        val stargazersUrl: String?,
+        val stargazersUrl: String? = null,
         @SerializedName("statuses_url")
-        val statusesUrl: String?,
+        val statusesUrl: String? = null,
         @SerializedName("subscribers_url")
-        val subscribersUrl: String?,
+        val subscribersUrl: String? = null,
         @SerializedName("subscription_url")
-        val subscriptionUrl: String?,
+        val subscriptionUrl: String? = null,
         @SerializedName("svn_url")
-        val svnUrl: String?,
+        val svnUrl: String? = null,
         @SerializedName("tags_url")
-        val tagsUrl: String?,
+        val tagsUrl: String? = null,
         @SerializedName("teams_url")
-        val teamsUrl: String?,
+        val teamsUrl: String? = null,
         @SerializedName("trees_url")
-        val treesUrl: String?,
+        val treesUrl: String? = null,
         @SerializedName("updated_at")
-        val updatedAt: String?,
+        val updatedAt: String? = null,
         @SerializedName("url")
-        val url: String?,
+        val url: String? = null,
         @SerializedName("watchers")
-        val watchers: Int?,
+        val watchers: Int? = null,
         @SerializedName("watchers_count")
-        val watchersCount: Int?
+        val watchersCount: Int? = null
     )
 
     data class Owner(
         @SerializedName("avatar_url")
-        val avatarUrl: String?,
+        val avatarUrl: String? = null,
         @SerializedName("events_url")
-        val eventsUrl: String?,
+        val eventsUrl: String? = null,
         @SerializedName("followers_url")
-        val followersUrl: String?,
+        val followersUrl: String? = null,
         @SerializedName("following_url")
-        val followingUrl: String?,
+        val followingUrl: String? = null,
         @SerializedName("gists_url")
-        val gistsUrl: String?,
+        val gistsUrl: String? = null,
         @SerializedName("gravatar_id")
-        val gravatarId: String?,
+        val gravatarId: String? = null,
         @SerializedName("html_url")
-        val htmlUrl: String?,
+        val htmlUrl: String? = null,
         @SerializedName("id")
-        val id: Int?,
+        val id: Int? = null,
         @SerializedName("login")
-        val login: String?,
+        val login: String? = null,
         @SerializedName("node_id")
-        val nodeId: String?,
+        val nodeId: String? = null,
         @SerializedName("organizations_url")
-        val organizationsUrl: String?,
+        val organizationsUrl: String? = null,
         @SerializedName("received_events_url")
-        val receivedEventsUrl: String?,
+        val receivedEventsUrl: String? = null,
         @SerializedName("repos_url")
-        val reposUrl: String?,
+        val reposUrl: String? = null,
         @SerializedName("site_admin")
-        val siteAdmin: Boolean?,
+        val siteAdmin: Boolean? = null,
         @SerializedName("starred_url")
-        val starredUrl: String?,
+        val starredUrl: String? = null,
         @SerializedName("subscriptions_url")
-        val subscriptionsUrl: String?,
+        val subscriptionsUrl: String? = null,
         @SerializedName("type")
-        val type: String?,
+        val type: String? = null,
         @SerializedName("url")
-        val url: String?
+        val url: String? = null
     )
 
     data class License(
         @SerializedName("key")
-        val key: String?,
+        val key: String? = null,
         @SerializedName("name")
-        val name: String?,
+        val name: String? = null,
         @SerializedName("node_id")
-        val nodeId: String?,
+        val nodeId: String? = null,
         @SerializedName("spdx_id")
-        val spdxId: String?,
+        val spdxId: String? = null,
         @SerializedName("url")
-        val url: String?
+        val url: String? = null
     )
