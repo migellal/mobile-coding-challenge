@@ -2,7 +2,7 @@ package pl.michalgellert.trendingrepos.model
 
 import com.google.gson.annotations.SerializedName
 
-data class GithubRepository(
+data class GithubResponse(
     @SerializedName("incomplete_results")
     val incompleteResults: Boolean? = null,
     @SerializedName("items")

@@ -1,11 +1,12 @@
-package pl.michalgellert.trendingrepos
+package pl.michalgellert.trendingrepos.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.squareup.picasso.Picasso
+import pl.michalgellert.trendingrepos.network.NetworkService
+import pl.michalgellert.trendingrepos.R
 import pl.michalgellert.trendingrepos.model.Repository
 
 class RepositoryListAdapter(private val list: List<Repository>) : RecyclerView.Adapter<RepositoryViewHolder>() {
@@ -33,7 +34,7 @@ class RepositoryViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
     fun bind(repository: Repository) {
         repoName.text = repository.name
         repoDescription.text = repository.description
-        Picasso.get().load(repository.avatar).into(repoAvatar)
+        NetworkService().picasso(repository.avatar, repoAvatar)
         repoOwner.text = repository.username
         repoStars.text = repository.stars.toString()
     }

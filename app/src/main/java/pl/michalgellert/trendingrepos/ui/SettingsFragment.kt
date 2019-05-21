@@ -1,10 +1,11 @@
-package pl.michalgellert.trendingrepos
+package pl.michalgellert.trendingrepos.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import pl.michalgellert.trendingrepos.R
 
 class SettingsFragment : Fragment() {
 

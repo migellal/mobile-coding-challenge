@@ -1,4 +1,4 @@
-package pl.michalgellert.trendingrepos
+package pl.michalgellert.trendingrepos.util
 
 import java.text.SimpleDateFormat
 import java.util.*

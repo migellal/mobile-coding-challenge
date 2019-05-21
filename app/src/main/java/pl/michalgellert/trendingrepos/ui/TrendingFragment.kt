@@ -1,4 +1,4 @@
-package pl.michalgellert.trendingrepos
+package pl.michalgellert.trendingrepos.ui
 
 import android.content.Context
 import android.os.Bundle
@@ -18,8 +18,10 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import pl.michalgellert.trendingrepos.R
 import pl.michalgellert.trendingrepos.model.Repository
 import pl.michalgellert.trendingrepos.model.RepositoryList
+import pl.michalgellert.trendingrepos.network.NetworkService
 import retrofit2.HttpException
 
 class TrendingFragment : Fragment() {
@@ -45,8 +47,7 @@ class TrendingFragment : Fragment() {
         loadingCircle = fView.findViewById(R.id.loading_pb)
         repositoryListView.layoutManager = LinearLayoutManager(activity as Context)
         repositoryListView.adapter = RepositoryListAdapter(listOf())
-        if (activity != null)
-            repositoryList = ViewModelProviders.of(activity as FragmentActivity).get(RepositoryList::class.java)
+        repositoryList = ViewModelProviders.of(activity as FragmentActivity).get(RepositoryList::class.java)
         if (repositoryList.repos.isEmpty())
             repositoryList.update = true
         prepareData()
@@ -56,12 +57,9 @@ class TrendingFragment : Fragment() {
     private fun prepareData(list: List<Repository> = listOf()) {
         enableLoadingCircle()
         if (repositoryList.update) {
-            val service = GithubFactory.service()
             CoroutineScope(Dispatchers.IO).launch {
-                val request =
-                    service.getTrendingReposAsync(DateCalculator().getCreatedDate30DaysAgo(), repositoryList.nextPage())
                 try {
-                    val response = request.await()
+                    val response = NetworkService().trendingRepos(repositoryList.nextPage()).await()
                     withContext(Dispatchers.Main) {
                         if (response.isSuccessful) {
                             Log.d(TAG, response.message())
@@ -82,7 +80,6 @@ class TrendingFragment : Fragment() {
 
     private fun initRecyclerView(list: List<Repository>) {
         repositoryList.repos = list
-
         repositoryListView.adapter = RepositoryListAdapter(list)
         repositoryListView.scrollToPosition(repositoryList.scrollPosition)
         repositoryListView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -113,7 +110,7 @@ class TrendingFragment : Fragment() {
         loadingCircle.visibility = View.GONE
     }
 
-    private fun isLoadingCircleEnabled(): Boolean =
+    private fun isLoadingCircleEnabled() =
         loadingCircle.visibility == View.VISIBLE
 
     private fun error(string: String) {
