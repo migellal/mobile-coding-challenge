@@ -7,5 +7,6 @@ data class Repository(
     val description: String,
     val stars: Int,
     val username: String,
-    val avatar: Link
+    val avatar: Link,
+    val page: Int = 1
 )

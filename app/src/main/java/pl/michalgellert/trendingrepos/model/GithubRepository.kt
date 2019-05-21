@@ -10,19 +10,20 @@ data class GithubRepository(
     @SerializedName("total_count")
     val totalCount: Int? = null
 ) {
-    fun toRepository(): List<Repository> {
+    fun toRepository(page: Int = 1, oldRepository: List<Repository> = listOf()): List<Repository> {
         return if (this.items != null) {
-            this.items.map {
+            oldRepository.plus(this.items.map {
                 Repository(
                     name = it?.name ?: "",
                     description = it?.description ?: "",
                     avatar = it?.owner?.avatarUrl ?: "",
                     username = it?.owner?.login ?: "",
-                    stars = it?.stargazersCount ?: -1
+                    stars = it?.stargazersCount ?: -1,
+                    page = page
                 )
-            }
+            })
         } else
-            listOf()
+            oldRepository
     }
 }
 

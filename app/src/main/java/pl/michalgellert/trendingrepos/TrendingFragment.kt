@@ -40,7 +40,6 @@ class TrendingFragment : Fragment() {
         loadingProgressBar = fView.findViewById(R.id.loading_pb)
         repositoryList.layoutManager = LinearLayoutManager(activity as Context)
         repositoryList.adapter = RepositoryListAdapter(listOf())
-        loadingProgressBar.visibility = View.VISIBLE
         return fView
     }
 
@@ -50,16 +49,18 @@ class TrendingFragment : Fragment() {
     }
 
 
-    private fun downloadData() {
+    private fun downloadData(page: Int = 1, list: List<Repository> = listOf()) {
+        if (::loadingProgressBar.isInitialized)
+            loadingProgressBar.visibility = View.VISIBLE
         val service = GithubFactory.service()
         CoroutineScope(Dispatchers.IO).launch {
-            val request = service.getTrendingReposAsync(DateCalculator().getCreatedDate30DaysAgo())
+            val request = service.getTrendingReposAsync(DateCalculator().getCreatedDate30DaysAgo(), page)
             try {
                 val response = request.await()
                 withContext(Dispatchers.Main) {
                     if (response.isSuccessful) {
                         Log.d(TAG, response.message())
-                        initRecyclerView(response.body()?.toRepository() ?: listOf())
+                        initRecyclerView(response.body()?.toRepository(page, list) ?: listOf())
                     } else {
                         logError("Response message: ${response.message()}")
                     }
@@ -76,8 +77,21 @@ class TrendingFragment : Fragment() {
     private fun initRecyclerView(list: List<Repository>) {
         if (::repositoryList.isInitialized) {
             repositoryList.adapter = RepositoryListAdapter(list)
+            val lastPage = list.maxBy { it.page }?.page ?: 1
+            repositoryList.scrollToPosition(list.count { it.page < lastPage } - 1)
+            repositoryList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                    super.onScrollStateChanged(recyclerView, newState)
+                    if (!recyclerView.canScrollVertically(1) &&
+                        ::loadingProgressBar.isInitialized &&
+                        loadingProgressBar.visibility == View.GONE
+                    ) {
+                        downloadData(list.lastOrNull()?.page?.plus(1) ?: 1, list)
+                    }
+                }
+            })
         }
-        if(::loadingProgressBar.isInitialized) {
+        if (::loadingProgressBar.isInitialized) {
             loadingProgressBar.visibility = View.GONE
         }
     }
@@ -86,11 +100,5 @@ class TrendingFragment : Fragment() {
         Log.e(TAG, string)
         Toast.makeText(activity, string, Toast.LENGTH_LONG).show()
     }
-
-    fun fakeData(): List<Repository> = listOf(
-        Repository("repo1", "repo1 desc", 123456, "user", "https://avatars0.githubusercontent.com/u/17506342?v=4"),
-        Repository("repo2", "repo2 desc", 1, "user2", "https://avatars0.githubusercontent.com/u/17506342?v=4"),
-        Repository("repo3", "repo3 desc", 99, "user3", "https://avatars0.githubusercontent.com/u/17506342?v=4")
-    )
 
 }
