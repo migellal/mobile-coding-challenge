@@ -8,8 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import pl.michalgellert.trendingrepos.model.Repository
 
-class RepositoryListAdapter(private val list: List<Repository>)
-    : RecyclerView.Adapter<RepositoryViewHolder>() {
+class RepositoryListAdapter(private val list: List<Repository>) : RecyclerView.Adapter<RepositoryViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepositoryViewHolder {
         return RepositoryViewHolder(LayoutInflater.from(parent.context), parent)
