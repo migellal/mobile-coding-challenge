@@ -1,5 +1,20 @@
 # Mobile Coding Challenge
 
+## Solution
+* UI :iphone:
+  * BottomNavigationView
+  * RecyclerView
+  * CardView
+  * Fragments
+* Network :earth_americas:
+  * Picassa (for avatars)
+  * Retrofit + Coroutine (for requests)
+  * Plugin: [JsonToKotlinClass](https://github.com/wuseal/JsonToKotlinClass) (to create GithubResponse.kt)
+* Test :repeat:
+  * jUnit
+
+---
+
 ## Idea of the App 
 The task is to implement a small app that will list the most starred Github repos that were created in the last 30 days. 
 You'll be fetching the sorted JSON data directly from the Github API (Github API explained down below). 
@@ -49,5 +64,4 @@ Choose whatever mobile platform you're most familiar with.
 
 * For iOS, feel free to use Swift or Objective-C. 
 * For Android, feel free to use Kotlin or Java. 
-
 
